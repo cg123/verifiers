@@ -181,6 +181,13 @@ class RLConfig(TrainingArguments):
         default=0.0,
         metadata={"help": "Frequency penalty (default 0.0)"},
     )
+    enable_return_routed_experts: bool = field(
+        default=False,
+        metadata={
+            "help": "Whether to return routed expert indices from vLLM for MoE models. "
+            "Returns [seq_len, num_layers, topk] routing information."
+        },
+    )
 
     # generation parameters
     generation_timeout: float = field(
@@ -327,6 +334,7 @@ class RLConfig(TrainingArguments):
                 "include_stop_str_in_output": False,
                 "return_tokens_as_token_ids": True,
                 "return_token_ids": True,
+                "enable_return_routed_experts": self.enable_return_routed_experts,
             },
         }
         self.gradient_accumulation_steps = 1

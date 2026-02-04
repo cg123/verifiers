@@ -66,6 +66,7 @@ class TrajectoryStepTokens(TypedDict):
     completion_logprobs: list[float]
     overlong_prompt: bool
     is_truncated: bool
+    routed_experts: list[list[list[int]]] | None  # [seq_len, num_layers, topk]
 
 
 class TokenUsage(TypedDict):
